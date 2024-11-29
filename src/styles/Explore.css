@@ -1,0 +1,49 @@
+.explore-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .explore-heading {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+  
+  .explore-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 0 20px;
+  }
+  
+  .explore-card {
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .explore-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .explore-content {
+    padding: 15px;
+  }
+  
+  .explore-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  
+  .explore-description {
+    font-size: 16px;
+    color: #7f8c8d;
+  }
+  

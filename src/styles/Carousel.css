@@ -1,0 +1,8 @@
+/* Carousel.css */
+.slick-dots li button:before {
+    color: #fff; /* Customize dot colors */
+  }
+  .slick-dots li.slick-active button:before {
+    color: #2ecc71; /* Customize active dot color */
+  }
+  
