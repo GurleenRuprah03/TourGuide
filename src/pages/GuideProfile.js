@@ -1,27 +1,25 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const GuideProfile = () => {
   const location = useLocation();
-  const { guide } = location.state; // Retrieve the guide details passed through navigation
+  const { guide } = location.state || {}; // Retrieve the guide details passed through navigation
+  const navigate = useNavigate(); // Initialize navigate hook
 
-  // State to handle chatbox visibility and chat messages
   const [isChatVisible, setIsChatVisible] = useState(false);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-
-  // State to handle availability selection
   const [selectedAvailability, setSelectedAvailability] = useState(null);
 
+  // Handle booking the tour and navigating to the booking confirmation page
   const handleBookTour = () => {
-    if (selectedAvailability) {
-      alert(
-        `Booking tour for ${guide.name} on ${selectedAvailability.date} at ${selectedAvailability.time}`
-      );
-      // Integrate actual booking functionality here
-    } else {
-      alert("Please select a valid availability time.");
-    }
+    // Pass the entire guide object and selectedAvailability to the next page
+    navigate("/bookingconfirmation", {
+      state: {
+        guide,  // Pass the full guide object
+        selectedAvailability, // Pass selected availability
+      },
+    });
   };
 
   const handleChatWithGuide = () => {
@@ -62,6 +60,7 @@ const GuideProfile = () => {
           <p><strong>Location:</strong> {guide.location}</p>
           <p><strong>Languages:</strong> {guide.language}</p>
           <p><strong>Description:</strong> {guide.description}</p>
+          <p><strong>Price per tour:</strong> ${guide.price}</p>
         </div>
       </div>
 
@@ -94,9 +93,6 @@ const GuideProfile = () => {
         <button style={styles.button} onClick={handleBookTour}>
           Book This Guide
         </button>
-        <button style={styles.button} onClick={handleChatWithGuide}>
-          {isChatVisible ? "Close Chat" : "Chat with Guide"}
-        </button>
       </div>
 
       {isChatVisible && (
@@ -125,6 +121,11 @@ const GuideProfile = () => {
           </div>
         </div>
       )}
+
+      {/* Floating Chat Button */}
+      <button style={styles.floatingChatButton} onClick={handleChatWithGuide}>
+        {isChatVisible ? "Close Chat" : "Chat with Guide"}
+      </button>
     </div>
   );
 };
@@ -190,9 +191,9 @@ const styles = {
     cursor: "pointer",
   },
   chatboxContainer: {
-    position: "absolute",
+    position: "fixed",
     right: "20px",
-    top: "20px",
+    bottom: "20px",
     width: "300px",
     height: "400px",
     backgroundColor: "#fff",
@@ -200,6 +201,7 @@ const styles = {
     boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
     display: "flex",
     flexDirection: "column",
+    zIndex: 100,
   },
   chatboxHeader: {
     backgroundColor: "#3498db",
@@ -250,6 +252,20 @@ const styles = {
     cursor: "pointer",
     fontSize: "14px",
     marginLeft: "10px",
+  },
+  floatingChatButton: {
+    position: "fixed",
+    right: "20px",
+    bottom: "20px",
+    backgroundColor: "#3498db",
+    color: "#fff",
+    padding: "12px 18px",
+    borderRadius: "50%",
+    border: "none",
+    cursor: "pointer",
+    fontSize: "16px",
+    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+    zIndex: 101,
   },
 };
 

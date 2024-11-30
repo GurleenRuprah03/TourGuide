@@ -4,28 +4,28 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 const Dashboard = () => {
   const tourGuides = [
     {
-      image: "/images/guide1.jpg", // Replace with real guide images
-      name: "John Doe",
-      rating: 4.5,
-      description: "Explore the hidden gems of Paris with an experienced local guide.",
-    },
-    {
-      image: "/images/guide1.jpg", // Replace with real guide images
-      name: "Jane Smith",
-      rating: 4.8,
-      description: "Let me take you through the cultural heart of Tokyo, Japan.",
-    },
-    {
-      image: "/images/guide1.jpg", // Replace with real guide images
-      name: "David Lee",
+      image: "/images/guide3.jpg", // Replace with real guide images
+      name: "Davina Lee",
       rating: 4.3,
-      description: "Sydney's beauty awaits you! Join me for an unforgettable tour.",
+      description: "Sydney's beauty awaits you! Join me for an unforgettable tour",
     },
     {
-      image: "/images/guide1.jpg", // Replace with real guide images
+      image: "/images/guide4.jpg",
       name: "Maria Garcia",
       rating: 5.0,
-      description: "Experience the luxury and wonder of Dubai with an expert guide.",
+      description: "Experience the luxury and wonder of Dubai with an expert guide",
+    },
+    {
+      image: "/images/guide7.jpg",
+      name: "Simone",
+      rating: 4.2,
+      description: "Experience the royal times in Victoria",
+    },
+    {
+      image: "/images/guide6.jpg",
+      name: "Grace Lavender",
+      rating: 5.0,
+      description: "Adventure is fun always.",
     },
   ];
 

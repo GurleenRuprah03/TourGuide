@@ -1,37 +1,52 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate hook
+import { useNavigate } from "react-router-dom";
 
 const Explore = () => {
   const [guides, setGuides] = useState([
     {
-      image: "/images/guide1.jpg",
+      image: "/images/guide2.jpg",
       name: "John Doe",
-      rating: 4.5,
+      rating: 4.2,
       gender: "Male",
       language: "English, French",
       activity: "Trekking",
       location: "Paris, France",
       description: "Explore the hidden gems of Paris with an experienced local guide.",
+      price: "$150",
+      availability: [
+        { date: "2024-12-01", time: "10:00 AM" },
+        { date: "2024-12-02", time: "2:00 PM" },
+      ]
     },
     {
-      image: "/images/guide2.jpg",
+      image: "/images/guide1.jpg",
       name: "Jane Smith",
-      rating: 4.8,
+      rating: 3.0,
       gender: "Female",
       language: "English, Japanese",
       activity: "Hiking",
       location: "Tokyo, Japan",
       description: "Let me take you through the cultural heart of Tokyo, Japan.",
+      price: "$200",
+      availability: [
+        { date: "2024-12-07", time: "11:00 AM" },
+        { date: "2024-12-02", time: "6:00 AM" },
+      ]
     },
     {
       image: "/images/guide3.jpg",
-      name: "David Lee",
+      name: "Davina Lee",
       rating: 4.3,
-      gender: "Male",
+      gender: "Female",
       language: "English, Chinese",
       activity: "Trekking",
       location: "Sydney, Australia",
       description: "Sydney's beauty awaits you! Join me for an unforgettable tour.",
+      price: "$180",
+      availability: [
+        { date: "2024-12-07", time: "11:00 AM" },
+        { date: "2024-12-02", time: "6:00 AM" },
+      ]
     },
     {
       image: "/images/guide4.jpg",
@@ -42,6 +57,56 @@ const Explore = () => {
       activity: "Safari",
       location: "Dubai, UAE",
       description: "Experience the luxury and wonder of Dubai with an expert guide.",
+      price: "$250",
+      availability: [
+        { date: "2024-12-07", time: "11:00 AM" },
+        { date: "2024-12-02", time: "6:00 AM" },
+      ]
+    },
+    {
+      image: "/images/guide5.jpg",
+      name: "Johny Gracea",
+      rating: 3.8,
+      gender: "Male",
+      language: "German, English",
+      activity: "Sight Seeing",
+      location: "New York, US",
+      description: "Experience the Time Square.",
+      price: "$80",
+      availability: [
+        { date: "2024-12-07", time: "11:00 AM" },
+        { date: "2024-12-02", time: "6:00 AM" },
+      ]
+    },
+    {
+      image: "/images/guide7.jpg",
+      name: "Simone",
+      rating: 4.2,
+      gender: "Female",
+      language: "Punjabi, English",
+      activity: "Sight Seeing",
+      location: "Victoria, BC",
+      description: "Experience the royal times in Victoria.",
+      price: "$150",
+      availability: [
+        { date: "2024-12-07", time: "11:00 AM" },
+        { date: "2024-12-02", time: "6:00 AM" },
+      ]
+    },
+    {
+      image: "/images/guide6.jpg",
+      name: "Grace Lavender",
+      rating: 5.0,
+      gender: "Male",
+      language: "French, English",
+      activity: "Trekking",
+      location: "Melbourne, Australia",
+      description: "Adventure is fun always.",
+      price: "$350",
+      availability: [
+        { date: "2024-12-07", time: "11:00 AM" },
+        { date: "2024-12-02", time: "6:00 AM" },
+      ]
     },
   ]);
 
@@ -72,14 +137,13 @@ const Explore = () => {
 
   // Handle sorting by rating
   const handleRatingSort = (order) => {
-    // 'asc' for ascending, 'desc' for descending
     const sortedGuides = [...guides].sort((a, b) => {
       if (order === "asc") {
-        return a.rating - b.rating; // Sort by ascending rating
+        return a.rating - b.rating;
       } else if (order === "desc") {
-        return b.rating - a.rating; // Sort by descending rating
+        return b.rating - a.rating;
       }
-      return 0; // Default: no sorting
+      return 0;
     });
 
     setFilteredGuides(sortedGuides); // Update filtered guides
@@ -99,14 +163,12 @@ const Explore = () => {
 
   const handleSubmitSearch = (e) => {
     e.preventDefault();
-    // Trigger search based on the query
     handleSearch({ target: { value: searchQuery } });
   };
 
-
   // Handle card click and navigate to guide profile
   const handleGuideClick = (guide) => {
-    navigate(`/guide-profile`, { state: { guide } }); // Pass guide details as state
+    navigate(`/guide-profile`, { state: { guide } });
   };
 
   return (
@@ -114,98 +176,79 @@ const Explore = () => {
       {/* Hero Section */}
       <div style={styles.heroSection}>
         <h1 style={styles.heroHeading}>Explore Our Tour Guides</h1>
-        <p style={styles.heroSubheading}>
-          Find the best guides for your next adventure.
-        </p>
+        <p style={styles.heroSubheading}>Find the best guides for your next adventure.</p>
       </div>
 
-      {/* Search Bar Section */}
-      <div style={styles.searchBarSection}>
+    {/* Search Bar Section */}
+    <div style={styles.searchBarSection}>
         <form onSubmit={handleSubmitSearch} style={styles.searchForm}>
-          <input
-            type="text"
-            placeholder="Search by Activity or Location"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            style={styles.searchInput}
-          />
-          <button type="submit" style={styles.searchButton}>
-            🔍
-          </button>
+          <div style={styles.searchInputContainer}>
+            <input
+              type="text"
+              placeholder="Search by Activity or Location"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={styles.searchInput}
+            />
+            <button type="submit" style={styles.searchButton}>
+              🔍
+            </button>
+          </div>
         </form>
+      </div>
+
+      {/* Sort Buttons Section */}
+      <div style={styles.sortButtonsSection}>
+        <button style={styles.sortButton} onClick={() => handleRatingSort("asc")}>
+          Sort by Rating (Asc)
+        </button>
+        <button style={styles.sortButton} onClick={() => handleRatingSort("desc")}>
+          Sort by Rating (Desc)
+        </button>
+        <button style={styles.sortButton} onClick={() => handleGenderSort("Male")}>
+          Sort by Male
+        </button>
+        <button style={styles.sortButton} onClick={() => handleGenderSort("Female")}>
+          Sort by Female
+        </button>
+        <button style={styles.sortButton} onClick={() => handleLanguageSort("English")}>
+          Sort by English
+        </button>
+        <button style={styles.sortButton} onClick={() => handleLanguageSort("French")}>
+          Sort by French
+        </button>
+        <button style={styles.sortButton} onClick={() => handleLanguageSort("German")}>
+          Sort by German
+        </button>
       </div>
 
       {/* Main Section */}
       <div style={styles.mainSection}>
-        {/* Sort Buttons Section (Left Side of Cards) */}
-        <div style={styles.sortSection}>
-          <button style={styles.sortButton} onClick={() => handleRatingSort("asc")}>
-            Sort by Rating (Asc)
-          </button>
-          <button style={styles.sortButton} onClick={() => handleRatingSort("desc")}>
-            Sort by Rating (Desc)
-          </button>
-          <button style={styles.sortButton} onClick={() => handleGenderSort("Male")}>
-            Sort by Male
-          </button>
-          <button style={styles.sortButton} onClick={() => handleGenderSort("Female")}>
-            Sort by Female
-          </button>
-          <button style={styles.sortButton} onClick={() => handleLanguageSort("English")}>
-            Sort by English
-          </button>
-          <button style={styles.sortButton} onClick={() => handleLanguageSort("French")}>
-            Sort by French
-          </button>
-          <button style={styles.sortButton} onClick={() => handleLanguageSort("German")}>
-            Sort by German
-          </button>
-        </div>
-
-        {/* Cards Section (Center of the Page) */}
+        {/* Cards Section */}
         <div style={styles.cardsSection}>
-          {/* Tour Guides Section - Cards */}
-          <div style={styles.guidesSection}>
-            <h2 style={styles.sectionTitle}>Meet Our Top Guides</h2>
-            <div style={styles.cardGrid}>
-              {filteredGuides.map((guide, index) => (
-                <div key={index} 
+          <h2 style={styles.sectionTitle}>Meet Our Top Guides</h2>
+          <div style={styles.cardGrid}>
+            {filteredGuides.map((guide, index) => (
+              <div
+                key={index}
                 style={styles.card}
-              onClick={() => handleGuideClick(guide)} // On card click, navigate to profile
+                onClick={() => handleGuideClick(guide)} // On card click, navigate to profile
               >
-                  <img
-                    src={guide.image}
-                    alt={guide.name}
-                    style={styles.cardImage}
-                  />
-                  <div style={styles.cardContent}>
-                    <h3 style={styles.cardTitle}>{guide.name}</h3>
-                    <div style={styles.cardRating}>
-                      {Array.from({ length: 5 }, (_, index) => (
-                        <span
-                          key={index}
-                          style={{
-                            color:
-                              index < Math.floor(guide.rating)
-                                ? "#FFD700"
-                                : index === Math.floor(guide.rating) &&
-                                  guide.rating % 1 >= 0.5
-                                ? "#FFD700"
-                                : "#ccc",
-                          }}
-                        >
-                          ★
-                        </span>
-                      ))}
-                    </div>
-                    <p style={styles.cardDescription}>{guide.description}</p>
-                    <p style={styles.cardActivity}>Activity: {guide.activity}</p>
-                    <p style={styles.cardLocation}>Location: {guide.location}</p>
-                    <p style={styles.cardLanguage}>Languages: {guide.language}</p>
+                <img src={guide.image} alt={guide.name} style={styles.cardImage} />
+                <div style={styles.cardContent}>
+                  <h3 style={styles.cardTitle}>{guide.name}</h3>
+                  <div style={styles.cardRating}>
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <span key={i} style={i < guide.rating ? styles.filledStar : styles.emptyStar}>
+                        ★
+                      </span>
+                    ))}
                   </div>
+                  <p style={styles.cardLocation}>{guide.location}</p>
+                  <p style={styles.cardPrice}>{guide.price}</p>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -213,186 +256,134 @@ const Explore = () => {
   );
 };
 
-// Styling for the Explore page
 const styles = {
   container: {
-    fontFamily: "Arial, sans-serif",
-    minHeight: "100vh",
-    width: "100%",
-    backgroundImage: "url('/images/coverPage.jpg')", // Full-screen background image for Explore
+    maxWidth: "100%",
+    margin: "0 auto",
+    padding: "20px",
+    backgroundImage: "url('../images/coverPage.jpg')", // Full-screen background image
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center",
-    overflow: "hidden",
-    margin: "0",
-    padding: "0",
   },
-
-  // Hero Section Styling
   heroSection: {
     position: "relative",
     textAlign: "center",
     paddingTop: "15vh", // Center vertically
     color: "#fff",
     zIndex: 1,
+    background: "rgba(0, 0, 0, 0.4)", // Dark overlay for better text contrast
     paddingBottom: "50px",
   },
   heroHeading: {
-    fontSize: "60px", // Larger text for the heading
-    fontWeight: "bold",
-    color: "#fff", // White text
-    marginBottom: "20px",
+    fontSize: "36px",
+    marginBottom: "10px",
   },
   heroSubheading: {
-    fontSize: "20px",
-    color: "#fff", // White text
-    marginBottom: "30px",
+    fontSize: "18px",
+    color: "#666",
   },
-
-  // Search Bar Section (Below Navbar, on the Right)
   searchBarSection: {
-    position: "absolute",
-    top: "25vh", // Below the heading section
-    right: "20px",
-    zIndex: 2, // Ensuring it's above other elements
-    width: "300px",
-    display: "flex",
-    justifyContent: "center",
+    marginBottom: "20px",
+    textAlign: "center",
   },
-
   searchForm: {
-    display: "flex",
+    display: "inline-flex",
+    justifyContent: "center",
     alignItems: "center",
-    width: "100%",
   },
-
+  searchInputContainer: {
+    position: "relative",
+    marginTop:"10px",
+  },
   searchInput: {
-    width: "100%",
-    padding: "12px 20px",
+    padding: "10px 40px 10px 20px", // Add padding for the icon
     fontSize: "16px",
-    borderRadius: "5px",
-    border: "1px solid #ccc",
+    border: "1px solid #ddd",
+    borderRadius: "50px", // Rounded corners
+    width: "300px",
     outline: "none",
   },
-
   searchButton: {
-    background: "none",
+    position: "absolute",
+    right: "12px", // Position the search icon to the left inside the input field
+    top: "45%",
+    transform: "translateY(-50%)",
+    backgroundColor: "transparent",
     border: "none",
-    fontSize: "20px",
+    color: "#888",
+    fontSize: "18px",
     cursor: "pointer",
-    paddingLeft: "10px",
   },
-
-  // Main Section (Containing Sort and Search Section, and Guides Section)
-  mainSection: {
-    display: "flex",
-    justifyContent: "center", // Center align the content horizontally
-    padding: "20px",
-  },
-
-  // Sort Section - Left Side (Buttons)
-  sortSection: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "15px",
-    padding: "20px",
-    width: "200px",
-  },
-
-  sortButton: {
-    backgroundColor: "#3498db",
-    color: "#fff",
-    border: "none",
-    padding: "10px",
-    borderRadius: "5px",
-    cursor: "pointer",
-    fontSize: "16px",
-    transition: "background-color 0.3s",
-  },
-
-  // Cards Section - Center of the Page
-  cardsSection: {
-    flex: 1,
-    padding: "20px",
-    display: "flex",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    gap: "20px",
-  },
-
-  guidesSection: {
+  sortButtonsSection: {
     textAlign: "center",
-    padding: "20px 0",
+    marginBottom: "30px",
   },
-
+  sortButton: {
+    padding: "10px 20px",
+    backgroundColor: "#f1f1f1",
+    color: "darkblue",
+    border: "1px solid #ddd",
+    borderRadius: "5px",
+    margin: "5px",
+    cursor: "pointer",
+    fontSize: "14px",
+  },
+  mainSection: {
+    textAlign: "center",
+  },
+  cardsSection: {
+    marginTop: "30px",
+  },
   sectionTitle: {
-    fontSize: "32px",
+    fontSize: "24px",
     fontWeight: "bold",
-    color: "#2c3e50",
     marginBottom: "20px",
   },
-
   cardGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)", // 3 cards per row
+    gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
     gap: "20px",
-    justifyItems: "center",
   },
-
   card: {
-    backgroundColor: "#fff",
+    border: "1px solid #ddd",
+    backgroundColor:"white",
     borderRadius: "10px",
-    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
-    width: "300px",
-    textAlign: "center",
+    overflow: "hidden",
+    cursor: "pointer",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
     transition: "transform 0.3s ease",
-    cursor: "pointer", // Make cursor a pointer on hover
-  },
-
-  // Hover Effect
-  cardHover: {
-    transform: "scale(1.05)", // Scale up the card slightly
-    boxShadow: "0 8px 20px rgba(0, 0, 0, 0.2)", // Increase shadow on hover
   },
   cardImage: {
     width: "100%",
     height: "200px",
     objectFit: "cover",
   },
-
   cardContent: {
     padding: "15px",
   },
-
   cardTitle: {
-    fontSize: "20px",
+    fontSize: "18px",
     fontWeight: "bold",
     marginBottom: "10px",
   },
-
   cardRating: {
     marginBottom: "10px",
   },
-
-  cardDescription: {
-    fontSize: "14px",
-    color: "#555",
-    marginBottom: "10px",
+  filledStar: {
+    color: "#FFD700",
   },
-
-  cardActivity: {
-    fontSize: "16px",
-    marginBottom: "5px",
+  emptyStar: {
+    color: "#ddd",
   },
-
   cardLocation: {
-    fontSize: "16px",
-    marginBottom: "5px",
+    fontSize: "14px",
+    color: "#666",
   },
-
-  cardLanguage: {
+  cardPrice: {
     fontSize: "16px",
-    color: "#555",
+    fontWeight: "bold",
+    marginTop: "10px",
   },
 };
 

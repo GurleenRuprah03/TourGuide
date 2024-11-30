@@ -9,7 +9,10 @@ import SignUp from "./pages/Register";
 import TourGuideSignUp from "./pages/Careers";
 import Explore from "./pages/Explore";
 import GuideProfile from "./pages/GuideProfile";
-import BookingPage from "./pages/BookingPage";
+import BookingConfirmation from "./pages/BookingConfirmation";
+import PaymentPage from "./pages/PaymentPage";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import TourGuideProfile from "./pages/TourGuideProfilePage";
 
 const App = () => {
   return (
@@ -22,10 +25,12 @@ const App = () => {
         <Route path="/careers" element={<TourGuideSignUp />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/guide-profile" element={<GuideProfile />} />
-        <Route
-          path="/booking-confirmation"
-          element={<BookingPage />}
-        />
+        <Route path="/bookingconfirmation" element={<BookingConfirmation />} />
+        <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/paymentsuccess" element={<PaymentSuccess/>}/>
+        <Route path="/tourguideprofile" element={<TourGuideProfile/>}/>
+
+        
       </Routes>
       <Footer/>
     </Router>

@@ -22,7 +22,7 @@ const Navbar = () => {
   const links = [
     { path: "/", label: "Home" },
     { path: "/signin", label: "Login" },
-    { path: "/signup", label: "Register" },
+    { path: "/explore", label: "Explore" },
     { path: "/careers", label: "Careers" },
   ];
 
