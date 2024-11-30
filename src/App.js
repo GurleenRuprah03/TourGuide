@@ -12,7 +12,8 @@ import GuideProfile from "./pages/GuideProfile";
 import BookingConfirmation from "./pages/BookingConfirmation";
 import PaymentPage from "./pages/PaymentPage";
 import PaymentSuccess from "./pages/PaymentSuccess";
-import TourGuideProfile from "./pages/TourGuideProfilePage";
+import UserDashboard from "./pages/GuideDashboard";
+
 
 const App = () => {
   return (
@@ -28,7 +29,7 @@ const App = () => {
         <Route path="/bookingconfirmation" element={<BookingConfirmation />} />
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/paymentsuccess" element={<PaymentSuccess/>}/>
-        <Route path="/tourguideprofile" element={<TourGuideProfile/>}/>
+        <Route path="/guidedashboard" element={<UserDashboard/>}/>
 
         
       </Routes>
