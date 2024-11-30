@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const SignUp = () => {
@@ -10,6 +10,8 @@ const SignUp = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState(""); // To show error messages
+
+  const navigate = useNavigate(); // Hook for redirecting after success
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -38,8 +40,7 @@ const SignUp = () => {
 
       if (response.ok) {
         alert(data.message); // Success
-        // Optionally, redirect to sign-in or dashboard
-        // window.location.href = '/signin';
+        navigate("/signin"); // Redirect to sign-in page after successful registration
       } else {
         setErrorMessage(data.message || "Something went wrong, please try again.");
       }
