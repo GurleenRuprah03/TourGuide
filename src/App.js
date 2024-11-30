@@ -20,7 +20,7 @@ const App = () => {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/home" element={<Dashboard />} />
+        <Route path="/" element={<Dashboard />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/careers" element={<TourGuideSignUp />} />
@@ -29,7 +29,7 @@ const App = () => {
         <Route path="/bookingconfirmation" element={<BookingConfirmation />} />
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/paymentsuccess" element={<PaymentSuccess/>}/>
-        <Route path="/" element={<UserDashboard/>}/>
+        <Route path="/userdashboard" element={<UserDashboard/>}/>
 
         
       </Routes>
