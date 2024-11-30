@@ -46,10 +46,7 @@ const UserDashboard = () => {
               <h4>Messages</h4>
               <p style={styles.statsValue}>5 New</p>
             </div>
-            <div style={styles.statsCard}>
-              <h4>Reviews</h4>
-              <p style={styles.statsValue}>4.7</p>
-            </div>
+            
           </div>
         </div>
 
