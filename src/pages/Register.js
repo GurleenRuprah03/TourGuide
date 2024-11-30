@@ -9,14 +9,44 @@ const SignUp = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(""); // To show error messages
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("User Data:", formData);
+    
+    // Show loading or disable the button (optional)
+    setErrorMessage("");
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(data.message); // Success
+        // Optionally, redirect to sign-in or dashboard
+        // window.location.href = '/signin';
+      } else {
+        setErrorMessage(data.message || "Something went wrong, please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setErrorMessage("Network error, please try again later.");
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -63,6 +93,7 @@ const SignUp = () => {
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
         </div>
+        {errorMessage && <p style={styles.errorMessage}>{errorMessage}</p>}
         <button type="submit" style={styles.button}>Sign Up</button>
       </form>
       <p style={styles.optionsText}>
@@ -134,6 +165,11 @@ const styles = {
   link: {
     color: "#2980b9",
     textDecoration: "none",
+  },
+  errorMessage: {
+    color: "red",
+    fontSize: "14px",
+    marginBottom: "10px",
   },
 };
 
