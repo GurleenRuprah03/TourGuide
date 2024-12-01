@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons
+// import bcrypt from 'bcrypt'; // To compare passwords (ensure bcrypt is installed)
+import jwt from 'jsonwebtoken'; // For JWT token (install it using npm install jsonwebtoken)
+
+<script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.js"></script>
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -19,6 +23,52 @@ const SignIn = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  // pages/api/login.js
+
+
+
+async function handler(req, res) {
+  if (req.method === 'POST') {
+    const { email, password } = req.body;
+
+    // Fetch user from the database based on email (replace this with your DB logic)
+    const user = await getUserByEmail(email); // You should write this function
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Compare the hashed password with the user's password
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    // Generate a JWT token (you should secure the secret key)
+    const token = jwt.sign(
+      { userId: user.id, email: user.email },
+      process.env.JWT_SECRET, // Store your secret key in environment variables
+      { expiresIn: '1h' } // Set token expiration (optional)
+    );
+
+    // Respond with the token
+    res.status(200).json({ message: 'Login successful', token });
+  } else {
+    res.status(405).json({ message: 'Method not allowed' });
+  }
+}
+
+// Function to fetch user from database (dummy example)
+async function getUserByEmail(email) {
+  // Replace with actual DB query to fetch user by email
+  const users = [
+    { id: 1, email: 'user@example.com', password: '$2b$10$E4cBTr2nBPLMklfZDk60Te5xFv41PCj7wGVjaeBO0hmiOO.ZtD9Gm' }, // Hashed password
+  ];
+
+  return users.find((user) => user.email === email);
+}
+
 
   return (
     <>
